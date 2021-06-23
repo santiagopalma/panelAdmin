@@ -8,7 +8,7 @@ import Menu from './components/paginas/Menu';
 import NuevoRoom from './components/paginas/NuevoRoom';
 import Sidebar from './components/ui/Sidebar';
 import Promocion from './components/paginas/promociones';
-
+import NuevoPromocion from './components/paginas/NuevoPromocion';
 
 
 
@@ -27,6 +27,7 @@ function App() {
               <Route path="/Menu" element={<Menu /> } />
               <Route path="/NuevoRoom" element={<NuevoRoom /> } />
               <Route path="/promociones" element={<Promocion /> }/>
+              <Route path="/NuevoPromocion" element={<NuevoPromocion /> }/>
               </Routes> 
             </div>
      
