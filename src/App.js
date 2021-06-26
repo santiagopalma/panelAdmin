@@ -9,7 +9,8 @@ import NuevoRoom from './components/paginas/NuevoRoom';
 import Sidebar from './components/ui/Sidebar';
 import Promocion from './components/paginas/promociones';
 import NuevoPromocion from './components/paginas/NuevoPromocion';
-
+import Actividades from'./components/paginas/ActividadesList'
+import NuevoActividades from'./components/paginas/NuevoActividades'
 
 
 function App() {
@@ -28,6 +29,8 @@ function App() {
               <Route path="/NuevoRoom" element={<NuevoRoom /> } />
               <Route path="/promociones" element={<Promocion /> }/>
               <Route path="/NuevoPromocion" element={<NuevoPromocion /> }/>
+              <Route path="/Actividades" element={<Actividades /> }/>
+              <Route path="/NuevoActividades" element={<NuevoActividades /> }/>
               </Routes> 
             </div>
      

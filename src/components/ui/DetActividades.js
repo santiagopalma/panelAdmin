@@ -2,7 +2,7 @@ import React, {useContext, useRef}from 'react';
 import { FirebaseContext} from '../../firebase';
 import firebaseConfig from '../../firebase/config';
 
-const DetPromocion = ({habitacion}) => {
+const DetActividades = ({habitacion}) => {
 
     //Existencia ref para acceder al valor directamente
 
@@ -11,7 +11,7 @@ const DetPromocion = ({habitacion}) => {
 
     const { firebase} = useContext(FirebaseContext)
 
-    const {id, Titulo, existencia, Imagen,  Cantidad, f_inicial, f_final} = habitacion;
+    const {id, Capacidad, Descripcion, Imagen,  Duracion, Hora, Titulo, fechaInicio, existencia} = habitacion;
 
     //modificar el estado de la habitacion en firebase 
 
@@ -19,7 +19,7 @@ const DetPromocion = ({habitacion}) => {
         const existencia = (existenciaRef.current.value ==="true");
         
         try {
-            firebase.db.collection('Promociones')
+            firebase.db.collection('Actividades')
                 .doc(id)
                 .update({
                     existencia,
@@ -57,15 +57,24 @@ const DetPromocion = ({habitacion}) => {
                     <div className="lg:w-7/12 xl:w-9/12 pl-5">
                     <p className="font-bold text-2xl text-gray-800 mb-4">{Titulo}</p>
                       
-                       <p className="text-gray-600 mb-4">Cantidad de descuento: {''}
-                        <span className="text-gray-700 font-bold"> {Cantidad} </span>
+                       <p className="text-gray-600 mb-4">Capacidad: {''}
+                        <span className="text-gray-700 font-bold"> {Capacidad} </span>
                         </p> 
                      
                         <p className="text-gray-600 mb-4">Fecha de Inicio: {''}
-                        <span className="text-gray-700 font-bold">  {f_inicial} </span>
+                        <span className="text-gray-700 font-bold">  {fechaInicio} </span>
                         </p> 
-                        <p className="text-gray-600 mb-4">Fecha Final: {''}
-                        <span className="text-gray-700 font-bold">  {f_final} </span>
+                        <p className="text-gray-600 mb-4">Duracion: {''}
+                        <span className="text-gray-700 font-bold">  {Duracion} </span>
+                        </p> 
+                        <p className="text-gray-600 mb-4">Titulo: {''}
+                        <span className="text-gray-700 font-bold">  {Titulo} </span>
+                        </p> 
+                        <p className="text-gray-600 mb-4">Descripcion: {''}
+                        <span className="text-gray-700 font-bold">  {Descripcion} </span>
+                        </p> 
+                        <p className="text-gray-600 mb-4">Hora: {''}
+                        <span className="text-gray-700 font-bold">  {Hora} </span>
                         </p> 
                     </div>
                 </div>
@@ -76,4 +85,4 @@ const DetPromocion = ({habitacion}) => {
 
 }
 
-export default DetPromocion;
+export default DetActividades;

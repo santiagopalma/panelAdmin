@@ -12,7 +12,9 @@ const Sidebar = () => {
                 <nav className="mt-10">
                     <NavLink className="p-1 text-gray-400 block hover:bg-gray-500 hover: text-gray-500" activeClassName ="text-white-500" exact="true" to="/Menu">Menu</NavLink>
                     <NavLink className="p-1 text-gray block hover:bg-gray-500 hover: text-gray-500" activeClassName="text-white-500" exact="true" to="/">Reservas</NavLink> 
-                    <NavLink className="p-1 text-gray block hover:bg-gray-500 hover: text-gray-500" activeClassName="text-white-500" exact="true" to="/promociones">Promociones</NavLink> 
+                    <NavLink className="p-1 text-gray block hover:bg-gray-500 hover: text-gray-500" activeClassName="text-white-500" exact="true" to="/promociones">Promociones</NavLink>
+                    <NavLink className="p-1 text-gray block hover:bg-gray-500 hover: text-gray-500" activeClassName="text-white-500" exact="true" to="/actividades">Actividades</NavLink> 
+ 
                      
                 </nav>
              </div>

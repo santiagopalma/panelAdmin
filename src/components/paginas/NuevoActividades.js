@@ -5,7 +5,7 @@ import{ FirebaseContext} from '../../firebase';
 import {useNavigate} from 'react-router-dom';
 import FileUploader from 'react-firebase-file-uploader';
 
-const NuevoPromocion = () => {
+const NuevoActividad = () => {
 
     //state para las imagenes
     const [subiendo, guardarSubiendo] = useState(false);
@@ -24,55 +24,50 @@ const NuevoPromocion = () => {
 
     const formik = useFormik({
         initialValues: {
-            Titulo: '',
+            Capacidad: '',
+            Descripcion: '',
             Duracion: '',
             Imagen: '',
-            Descripcion: '',
-            f_final: '',
-            f_inicial: '',
-            Cantidad:'',
-
+            Hora: '',
+            Titulo: '',
+            fechaInicio: '',
         },
         validationSchema: Yup.object({
-            Titulo: Yup.string()
-                        .min(3, 'El Titulo de la promocion deben tener al menos 3 caracteres')
-                        .required('El Titulo de la promocion es obligatorio'),
-            Descripcion: Yup.string()
-                        .min(3, 'La Descripcion de la promocion deben tener al menos 3 caracteres')
-                        .required('El Descripcion de la promocion es obligatorio'),
+            Capacidad: Yup.string()
+                        .min(1, 'La Capacidad de la promocion deben tener al menos 3 caracteres')
+                        .required('La Capacidad de la promocion es obligatorio'),
             
 
-            Duracion: Yup.number()
-                        .min(1, 'Debes agregar un numero')
-                        .required('La duracion de la promocion es obligatorio'),
+            Descripcion: Yup.string()
+                        .min(10, 'Debes agregar una descripcion')
+                        .required('La descripcion es obligatoria'),
                         
                         
-            f_inicial: Yup.string()
-                        .required('La fecha de cuando inicia la promocion es obligatorio'),
+            fechaInicio: Yup.string()
+                        .required('La fecha de cuando inicia la actividad es obligatorio'),
 
 
-            f_final: Yup.string()
-                        .required('La fecha de cuando termina la promocion es obligatorio'),
+            Titulo: Yup.string()
+                        .required('El titulo de la actividad es obligatoria'),
 
 
-            Cantidad: Yup.string()
-                        .required('La cantidad de descuento es obligatorio'),
+            Hora: Yup.string()
+                        .required('La hora de la actividad es obligatoria'),
 
-                
+            Duracion: Yup.string()
+                        .required('La duracion de la actividad es obligatoria'),
+
                         
-            // descripcion: Yup.string()
-            //             .min(10, 'La descripcion debe ser mas larga')
-            //             .required('La descripcion de la habitacion es obligatorio'),
 
         }),
         onSubmit: promocion => {
             try{
                 promocion.existencia = true;
                 promocion.Imagen = urlimagen;
-                firebase.db.collection('Promociones').add(promocion)
+                firebase.db.collection('Actividades').add(promocion)
             
                 //Redireccionar 
-                navigate('/promociones')
+                navigate('/Actividades')
             } catch (error) {
                 console.log(error);
             }
@@ -91,15 +86,15 @@ const NuevoPromocion = () => {
         console.log(error);
     }
 
-    const handleUploadSuccess = async Titulo => {
+    const handleUploadSuccess = async nombre => {
         guardarProgreso(100);
         guardarSubiendo(false);
 
         //Almacenar la URL de destino
         const url = await firebase
                 .storage
-                .ref("Promociones")
-                .child(Titulo)
+                .ref("Actividades")
+                .child(nombre)
                 .getDownloadURL();
 
         console.log(url);
@@ -122,12 +117,12 @@ const NuevoPromocion = () => {
                     onSubmit={formik.handleSubmit}
                    >
                        <div className="mb-4">
-                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="Titulo">Titulo de la Promocion</label>
+                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="Titulo">Titulo de la Actividad</label>
                             <input
                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 id="Titulo"
                                 type="text"
-                                placeholder="Titulo de la Promocion"
+                                placeholder="Nombre de la Actividad"
                                 value={formik.values.Titulo}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
@@ -141,91 +136,91 @@ const NuevoPromocion = () => {
 
                        
                         <div className="mb-4">
-                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="f_inicial">fecha de inicio de la promocion</label>
+                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="fechaInicio">fecha de inicio de la promocion</label>
                             <input
                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                id="f_inicial"
+                                id="fechaInicio"
                                 type="text"
-                                placeholder="Fecha Inicial de la Promocion"
-                                value={formik.values.f_inicial}
+                                placeholder="Fecha Inicial de la Actividad"
+                                value={formik.values.fechaInicio}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
                             />
                        </div>
-                       {formik.touched.f_inicial && formik.errors.f_inicial ?(
+                       {formik.touched.fechaInicio && formik.errors.fechaInicio ?(
                            <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-5"role="alert" >
-                               <p>{formik.errors.f_inicial}</p>
+                               <p>{formik.errors.fechaInicio}</p>
                            </div>
                        ):null}
 
 
                         <div className="mb-4">
-                                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="f_final">Fecha final de la promocion</label>
+                                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="Duracion">Duracion de la actividad</label>
                                 <input
                                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                    id="f_final"
+                                    id="Duracion"
                                     type="text"
-                                    placeholder="Fecha final de la promcion"
-                                    value={formik.values.f_final}
+                                    placeholder="Duracion de la Actividad"
+                                    value={formik.values.Duracion}
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
                                 />
                         </div>
-                        {formik.touched.f_final && formik.errors.f_final ?(
+                        {formik.touched.Duracion && formik.errors.Duracion ?(
                             <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-5"role="alert" >
-                                <p>{formik.errors.f_final}</p>
+                                <p>{formik.errors.Duracion}</p>
                             </div>
                         ):null}
 
                        <div className="mb-4">
-                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="Duracion">Duracion de la Promocion</label>
+                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="Hora">Hora de la Actividad</label>
                             <input
                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                id="Duracion"
-                                type="number"
-                                placeholder="Ingresar el Duracion de la promocion"
+                                id="Hora"
+                                type="text"
+                                placeholder="Ingresar la hora de la actividad"
                                 min="0"
-                                value={formik.values.Duracion}
+                                value={formik.values.Hora}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
                             />
                        </div>
 
-                       {formik.touched.Duracion && formik.errors.Duracion ?(
+                       {formik.touched.Hora && formik.errors.Hora ?(
                            <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-5"role="alert" >
-                               <p>{formik.errors.Duracion}</p>
+                               <p>{formik.errors.Hora}</p>
                            </div>
                        ):null}
                        
 
-                        <div className="mb-4">
-                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="Cantidad">Cantidad de Descuento</label>
+                       <div className="mb-4">
+                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="Capacidad">Capacidad de la Actividad</label>
                             <input
                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                id="Cantidad"
+                                id="Capacidad"
                                 type="number"
-                                placeholder="Cantidad de descuento"
+                                placeholder="Numero de personas disponible de la actividad"
                                 min="0"
-                                value={formik.values.Cantidad}
+                                value={formik.values.Capacidad}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
                             />
                        </div>
 
-                       {formik.touched.Cantidad && formik.errors.Cantidad ?(
+                       {formik.touched.Capacidad && formik.errors.Capacidad ?(
                            <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-5"role="alert" >
-                               <p>{formik.errors.Cantidad}</p>
+                               <p>{formik.errors.Capacidad}</p>
                            </div>
                        ):null}
 
                        <div className="mb-4">
-                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="imagen">Imagen/</label>
+                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="Imagen">Imagen/</label>
                             <FileUploader
                               accept="image/*" 
                               id="Imagen"
                               name="Imagen" 
                               randomizeFilename
-                              storageRef={firebase.storage.ref("Promociones")}
+                              storageRef={firebase.storage.ref("Actividades")}
                               onUploadStart={handleUploadStart}
                               onUploadError={handleUploadError}
                               onUploadSuccess={handleUploadSuccess}
@@ -247,14 +242,37 @@ const NuevoPromocion = () => {
                           </p>  
                         )}
 
-                       
+                       {/* <div className="mb-4">
+                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="categoria">Categoria</label>
+                            <select
+                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                id="Precio"
+                                name="categoria"
+                                value={formik.values.categoria}
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                            >  
+                                <option value="">-- Seleccione --</option> 
+                                <option value="HabitacionSimple">Habitacion Simple</option>
+                                <option value="Habitacion Doble">Habitacion Doble</option>
+                                <option value="Suite">Suite</option>
+                                <option value="Habitacion Triple">Habitacion Triple</option>
+                                <option value="Suite presidencial">Suite Presidencial</option>
+                                <option value="Habitacion sencilla">Habitacion Sencilla</option>
+                            </select>
+                       </div>
+                       {formik.touched.categoria && formik.errors.categoria ?(
+                           <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-5"role="alert" >
+                               <p>{formik.errors.categoria}</p>
+                           </div>
+                       ):null} */}
 
                        <div className="mb-4">
-                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="descripcion">Descripcion</label>
+                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="Descripcion">Descripcion</label>
                             <textarea
                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline h-40"
                                 id="Descripcion"
-                                placeholder="Descripcion de habitacion"
+                                placeholder="Descripcion de la Actividad"
                                 value={formik.values.Descripcion}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
@@ -282,4 +300,4 @@ const NuevoPromocion = () => {
     );
 }
 
-export default NuevoPromocion;
+export default NuevoActividad;
