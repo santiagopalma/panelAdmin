@@ -4,6 +4,8 @@ import * as Yup from 'yup'
 import{ FirebaseContext} from '../../firebase';
 import {useNavigate} from 'react-router-dom';
 import FileUploader from 'react-firebase-file-uploader';
+import { useParams } from 'react-router';
+
 
 const NuevoRoom = () => {
 
@@ -12,9 +14,13 @@ const NuevoRoom = () => {
     const [progreso, guardarProgreso] = useState(0);
     const [urlimagen, guardarUrlimagen] = useState('');
 
+   
     //Context con las operaciones de firebase
     const{ firebase } = useContext(FirebaseContext);
+    const resultado =  firebase.db.collection('productos').doc('73ouIQylDbubQiLSr9wG').get();
+    console.log(resultado)
 
+    console.log(useParams()['id']);
     //console.log(firebase);
 
     //Hook para redireccionar
@@ -51,7 +57,7 @@ const NuevoRoom = () => {
 
         }),
 
-
+        
         onSubmit: habitacion => {
             try{
                 habitacion.existencia = true;
