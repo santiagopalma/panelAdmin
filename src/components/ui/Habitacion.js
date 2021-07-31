@@ -1,8 +1,6 @@
 import React, {useContext, useRef}from 'react';
 import { FirebaseContext} from '../../firebase';
-import firebaseConfig from '../../firebase/config';
-import editaroom from '../paginas/EditarRoom'
-import {useNavigate} from 'react-router-dom';
+
 import {Link} from 'react-router-dom';
 
 
@@ -40,17 +38,6 @@ const Habitacion = ({habitacion}) => {
             //await db.collection('productos').doc(id).delete();
 
     }
-    //Hook para redireccionar
-    const navigate = useNavigate();
-
-    const editarobject = async(id)  => {
-        if(window.confirm(id))
-            
-            console.log(id);
-            //await db.collection('productos').doc(id).delete();
-
-    }
-    
 
     return(
        <div className="w-full px-3 mb-4">

@@ -13,6 +13,9 @@ import Actividades from'./components/paginas/ActividadesList'
 import NuevoActividades from'./components/paginas/NuevoActividades'
 import Habitaciones from './components/paginas/Habitaciones';
 import EditarRoom from './components/paginas/EditarRoom';
+import EditarPromocion from './components/paginas/EditarPromocion';
+import EditarActividades from './components/paginas/EditarActividades';
+
 
 
 function App() {
@@ -34,6 +37,8 @@ function App() {
               <Route path="/Actividades" element={<Actividades /> }/>
               <Route path="/NuevoActividades" element={<NuevoActividades /> }/>
               <Route path='/EditarRoom/:id' element={<EditarRoom /> }/>
+              <Route path='/EditarPromocion/:id' element={<EditarPromocion /> }/>
+              <Route path='/EditarActividades/:id' element={<EditarActividades /> }/>
               </Routes> 
             </div>
      

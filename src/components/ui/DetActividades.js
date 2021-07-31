@@ -1,6 +1,7 @@
 import React, {useContext, useRef}from 'react';
 import { FirebaseContext} from '../../firebase';
 import firebaseConfig from '../../firebase/config';
+import {Link} from 'react-router-dom';
 
 const DetActividades = ({habitacion}) => {
 
@@ -29,6 +30,13 @@ const DetActividades = ({habitacion}) => {
             console.log(error);
         }
         
+    }
+
+    const deleteobject = async(id)  => {
+        if(window.confirm("Seguro que deseas eliminar esta habitacion"))
+            console.log(id);
+            //await db.collection('productos').doc(id).delete();
+
     }
 
     return(
@@ -76,6 +84,11 @@ const DetActividades = ({habitacion}) => {
                         <p className="text-gray-600 mb-4">Hora: {''}
                         <span className="text-gray-700 font-bold">  {Hora} </span>
                         </p> 
+                        <button onClick={() => deleteobject(id)}  className="bg-blue-800 hover:bg-blue-700, inline-block mb-5 p-2 text-white uppercase font-bold" > ELIMINAR</button>
+                        <p></p>
+                        <Link to={`/EditarActividades/${id}`} className=" bg-blue-800 hover:bg-blue-700, inline-block mb-5 p-2 text-white uppercase font-bold">
+                            Editar
+                        </Link>
                     </div>
                 </div>
            </div>
