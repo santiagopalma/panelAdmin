@@ -4,6 +4,7 @@ import * as Yup from 'yup'
 import{ FirebaseContext} from '../../firebase';
 import {useNavigate} from 'react-router-dom';
 import FileUploader from 'react-firebase-file-uploader';
+import { useParams } from 'react-router';
 
 const NuevoActividad = () => {
 
@@ -21,7 +22,8 @@ const NuevoActividad = () => {
     const navigate = useNavigate();
 
     //validacion y leer los datos del formulario
-
+    var idActividad = useParams()['id'];
+        
     const formik = useFormik({
         initialValues: {
             Capacidad: '',
@@ -60,12 +62,12 @@ const NuevoActividad = () => {
                         
 
         }),
-        onSubmit: promocion => {
+        onSubmit: Actividad => {
             try{
-                promocion.existencia = true;
-                promocion.Imagen = urlimagen;
-                firebase.db.collection('Actividades').add(promocion)
-            
+                Actividad.existencia = true;
+                Actividad.Imagen = urlimagen;
+                firebase.db.collection('Actividades').doc(idActividad).update(Actividad);
+
                 //Redireccionar 
                 navigate('/Actividades')
             } catch (error) {
@@ -290,7 +292,7 @@ const NuevoActividad = () => {
                        <input
                            type="submit"
                            className="bg-blue-800 hover:bg-blue-900 w-full mt-5 p-2 text-white uppercase font-bold" 
-                           value="Agregar Promocion"
+                           value="Editar Actividad"
                        />
                        
                        </form> 

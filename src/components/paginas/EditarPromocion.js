@@ -4,6 +4,7 @@ import * as Yup from 'yup'
 import{ FirebaseContext} from '../../firebase';
 import {useNavigate} from 'react-router-dom';
 import FileUploader from 'react-firebase-file-uploader';
+import { useParams } from 'react-router';
 
 const NuevoPromocion = () => {
 
@@ -21,6 +22,9 @@ const NuevoPromocion = () => {
     const navigate = useNavigate();
 
     //validacion y leer los datos del formulario
+
+
+    var idPromocion = useParams()['id'];
 
     const formik = useFormik({
         initialValues: {
@@ -69,8 +73,8 @@ const NuevoPromocion = () => {
             try{
                 promocion.existencia = true;
                 promocion.Imagen = urlimagen;
-                firebase.db.collection('Promociones').add(promocion)
-            
+                firebase.db.collection('Promociones').doc(idPromocion).update(promocion);
+
                 //Redireccionar 
                 navigate('/promociones')
             } catch (error) {
