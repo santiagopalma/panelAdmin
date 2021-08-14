@@ -14,7 +14,22 @@ const Habitacion = ({habitacion}) => {
 
     const { firebase} = useContext(FirebaseContext)
 
-    const {id, nombre, imagen, existencia, categoria, precio, descripcion,} = habitacion;
+    const {id, nombre, imagen, existencia, categoria, precio, descripcion,capacidad} = habitacion;
+
+    var str = descripcion
+    var array = str.split(",");
+    const listItems = array.map((number,i) =>
+                <li key={i}>{number}</li>
+                );
+    
+   
+
+                  
+
+
+    
+
+               
 
     //modificar el estado de la habitacion en firebase 
 
@@ -65,10 +80,12 @@ const Habitacion = ({habitacion}) => {
                     <div className="lg:w-7/12 xl:w-9/12 pl-5">
                        <p className="font-bold text-2xl text-gray-800 mb-4">{nombre}</p>
                        <p className="text-gray-600 mb-4">Categoria: {''}
-                        <span className="text-gray-700 font-bold"> {categoria.toUpperCase()} </span>
+                        <span className="text-gray-700 font-bold"> {categoria} </span>
                         </p> 
-                        <p className="text-gray-600 mb-4">{descripcion}</p> 
-                        <p className="text-gray-600 mb-4">Precio: {''}
+                        <p className="text-gray-600 mb-4">Descripción: {''}</p> 
+                        <ul>{listItems}</ul>
+                         
+                        <p className="text-gray-600 mb-4 mt-4">Precio: {''}
                         <span className="text-gray-700 font-bold">  $ {precio} </span>
                         </p> 
                         <button onClick={() => deleteobject(id)}  className="bg-blue-800 hover:bg-blue-700, inline-block mb-5 p-2 text-white uppercase font-bold" > ELIMINAR</button>
