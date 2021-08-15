@@ -36,8 +36,8 @@ const NuevoActividad = () => {
         },
         validationSchema: Yup.object({
             Capacidad: Yup.string()
-                        .min(1, 'La Capacidad de la promocion deben tener al menos 3 caracteres')
-                        .required('La Capacidad de la promocion es obligatorio'),
+                        .min(1, 'La Capacidad de la actividad deben tener al menos 3 caracteres')
+                        .required('La Capacidad de la actividad es obligatorio'),
             
 
             Descripcion: Yup.string()

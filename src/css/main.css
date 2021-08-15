@@ -7,6 +7,27 @@
  * 1. Correct the line height in all browsers.
  * 2. Prevent adjustments of font size after orientation changes in iOS.
  */
+ @import url('https://fonts.googleapis.com/css2?family=Josefin+sans');
+
+ *{
+  font-family: 'Josefin-Sans', cursive !important;
+ }
+
+
+ .flex-container{
+  display: flex;
+    
+}
+
+.flex-container div{
+    padding:5px;
+
+}
+
+.flex-container button{
+  border-radius:4px;
+
+}
 
  html {
     line-height: 1.15; /* 1 */

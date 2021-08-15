@@ -82,11 +82,22 @@ const DetActividades = ({habitacion}) => {
                         <p className="text-gray-600 mb-4">Hora: {''}
                         <span className="text-gray-700 font-bold">  {Hora} </span>
                         </p> 
-                        <button onClick={() => deleteobject(id)}  className="bg-blue-800 hover:bg-blue-700, inline-block mb-5 p-2 text-white uppercase font-bold" > ELIMINAR</button>
-                        <p></p>
-                        <Link to={`/EditarActividades/${id}`} className=" bg-blue-800 hover:bg-blue-700, inline-block mb-5 p-2 text-white uppercase font-bold">
-                            Editar
-                        </Link>
+
+
+                        <div class="flex-container" >
+                            <div class="bordesbutton" >
+                                <button onClick={() => deleteobject(id)} className="bg-red-800 hover:bg-blue-700, inline-block mb-5 p-2 text-white uppercase font-bold" > ELIMINAR</button>
+                            </div>
+                            <div class="bordesbutton" >
+                                <button className=" bg-yellow-500 hover:bg-blue-700, inline-block mb-5 p-2 text-white uppercase font-bold">
+                                <Link to={`/EditarActividades/${id}`} >
+
+                                        Editar
+                                    </Link>
+                                </button>
+                            </div>
+                        </div>
+                     
                     </div>
                 </div>
            </div>

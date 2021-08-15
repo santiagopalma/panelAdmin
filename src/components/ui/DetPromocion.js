@@ -75,11 +75,20 @@ const DetPromocion = ({habitacion}) => {
                         <p className="text-gray-600 mb-4">Fecha Final: {''}
                         <span className="text-gray-700 font-bold">  {f_final} </span>
                         </p> 
-                        <button onClick={() => deleteobject(id)}  className="bg-blue-800 hover:bg-blue-700, inline-block mb-5 p-2 text-white uppercase font-bold" > ELIMINAR</button>
-                        <p></p>
-                        <Link to={`/EditarPromocion/${id}`} className=" bg-blue-800 hover:bg-blue-700, inline-block mb-5 p-2 text-white uppercase font-bold">
-                            Editar
-                        </Link>
+
+                        <div class="flex-container" >
+                            <div class="bordesbutton" >
+                                <button onClick={() => deleteobject(id)} className="bg-red-800 hover:bg-blue-700, inline-block mb-5 p-2 text-white uppercase font-bold" > ELIMINAR</button>
+                            </div>
+                            <div class="bordesbutton" >
+                                <button className=" bg-yellow-500 hover:bg-blue-700, inline-block mb-5 p-2 text-white uppercase font-bold">
+                                <Link to={`/EditarPromocion/${id}`}>
+                                        Editar
+                                    </Link>
+                                </button>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
            </div>
