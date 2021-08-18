@@ -29,7 +29,7 @@ function App() {
         <Sidebar/>
             <div className="md:w-3/5 xl:w-4/5 p-6">
               <Routes>
-              <Route path="/" element={<Reservas /> } />
+              <Route path="/" element={<Habitaciones /> } />
               <Route path="/Habitaciones" element={<Habitaciones /> } />
               <Route path="/NuevoRoom" element={<NuevoRoom /> } />
               <Route path="/promociones" element={<Promocion /> }/>

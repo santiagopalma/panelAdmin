@@ -32,7 +32,7 @@ const DetActividades = ({habitacion}) => {
     }
 
     const deleteobject = async(id)  => {
-        if(window.confirm("Seguro que deseas eliminar esta habitacion"))
+        if(window.confirm("Seguro que deseas eliminar esta actividad"))
             await firebase.db.collection('Actividades').doc(id).delete();
 
     }
@@ -91,7 +91,6 @@ const DetActividades = ({habitacion}) => {
                             <div class="bordesbutton" >
                                 <button className=" bg-yellow-500 hover:bg-blue-700, inline-block mb-5 p-2 text-white uppercase font-bold">
                                 <Link to={`/EditarActividades/${id}`} >
-
                                         Editar
                                     </Link>
                                 </button>

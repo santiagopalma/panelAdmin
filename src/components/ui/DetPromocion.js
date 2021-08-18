@@ -32,7 +32,7 @@ const DetPromocion = ({habitacion}) => {
         
     }
     const deleteobject = async(id)  => {
-        if(window.confirm("Seguro que deseas eliminar esta habitacion"))
+        if(window.confirm("Seguro que deseas eliminar esta Promocion"))
             await firebase.db.collection('Promociones').doc(id).delete();
 
     }

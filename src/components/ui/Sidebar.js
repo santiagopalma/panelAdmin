@@ -13,7 +13,7 @@ const Sidebar = () => {
                     <NavLink className="p-1 text-white block hover:bg-gray-600 hover: text-white-500" activeClassName ="text-white-500" exact="true" to="/Habitaciones">Habitaciones</NavLink>
                     <NavLink className="p-1 text-white block hover:bg-gray-600 hover: text-white-500" activeClassName="text-white-500" exact="true" to="/promociones">Promociones</NavLink>
                     <NavLink className="p-1 text-white block hover:bg-gray-600 hover: text-white-500" activeClassName="text-white-500" exact="true" to="/actividades">Actividades</NavLink> 
-                    <NavLink className="p-1 text-white block hover:bg-gray-600 hover: text-white-500" activeClassName="text-white-500" exact="true" to="/">Reservas</NavLink> 
+                    {/* <NavLink className="p-1 text-white block hover:bg-gray-600 hover: text-white-500" activeClassName="text-white-500" exact="true" to="/">Reservas</NavLink>  */}
 
                      
                 </nav>
