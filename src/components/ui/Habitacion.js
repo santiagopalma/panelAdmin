@@ -13,7 +13,7 @@ const Habitacion = ({ habitacion }) => {
 
     const { firebase } = useContext(FirebaseContext)
 
-    const { id, nombre, imagen, existencia, categoria, precio, descripcion, capacidad } = habitacion;
+    const { id, nombre, imagen,imagen2, existencia, categoria, precio, descripcion, capacidad } = habitacion;
 
     var str = descripcion
     var array = str.split(",");
@@ -48,7 +48,7 @@ const Habitacion = ({ habitacion }) => {
                 <div className="lg:flex">
                     <div className="lg:w-5/12 xl:w-3/12">
                         <img src={imagen} alt="imagen habitacion" />
-
+                        <img src={imagen2} alt="imagen2 habitacion"/>
                         <div className="sm:flex sm:-mx-2 pl-2">
                             <label className="block mt-5 sm:w-2/4">
                                 <span className="block text-gray-800 mb-2">Existencia</span>

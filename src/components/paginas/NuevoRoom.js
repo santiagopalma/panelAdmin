@@ -1,17 +1,25 @@
-import React, { useContext, useState} from 'react';
+import React, { useContext, useEffect, useState} from 'react';
 import { useFormik} from 'formik';
 import * as Yup from 'yup'
 import{ FirebaseContext} from '../../firebase';
 import {useNavigate} from 'react-router-dom';
 import FileUploader from 'react-firebase-file-uploader';
 
+import 'react-slideshow-image/dist/styles.css'
+import { MySlide } from './MySlide';
+import { Slide } from 'react-slideshow-image';
+ 
+
 const NuevoRoom = () => {
 
     //state para las imagenes
     const [subiendo, guardarSubiendo] = useState(false);
     const [progreso, guardarProgreso] = useState(0);
-    const [urlimagen, guardarUrlimagen] = useState('');
+    const [urlimagen,guardarUrlimagen] = useState('');
+    const[urlimagen2,guardarUrlimagen2]=useState('');
+    //const[urlimagen3,guardarSubiendo]=useState('');
 
+    
     //Context con las operaciones de firebase
     const{ firebase } = useContext(FirebaseContext);
 
@@ -28,6 +36,8 @@ const NuevoRoom = () => {
             precio: '',
             categoria: '',
             imagen: '',
+            imagen2:'',
+            imagen3:'',
             descripcion: '',
         },
 
@@ -56,6 +66,8 @@ const NuevoRoom = () => {
             try{
                 habitacion.existencia = true;
                 habitacion.imagen = urlimagen;
+                habitacion.imagen2=urlimagen2;
+                //habitacion.imagen3=urlimagen3
                 firebase.db.collection('productos').add(habitacion)
             
                 //Redireccionar 
@@ -83,21 +95,41 @@ const NuevoRoom = () => {
         guardarSubiendo(false);
 
         //Almacenar la URL de destino
+    
         const url = await firebase
                 .storage
                 .ref("productos")
                 .child(nombre)
                 .getDownloadURL();
 
-        console.log(url);
-        guardarUrlimagen(url);
-    }
+                console.log(url);
+                guardarUrlimagen(url);
+       const url2 = await firebase
+               .storage
+               .ref("productos")
+                .child(nombre)
+               .getDownloadURL();
+        
+
+        
+        console.log(url2);
+       
+       guardarUrlimagen2(url2);
+        }
 
     const handleProgress = progreso => {
         guardarProgreso(progreso);
         console.log(progreso);
 
     }
+
+
+    
+        
+
+    
+
+
 
 
     return (
@@ -171,11 +203,41 @@ const NuevoRoom = () => {
                             </div>
                         )}
 
-                        {urlimagen && (
+                        
+                    
+
+                        <div className="mb-4">
+                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="imagen2">Imagen2/</label>
+                            <FileUploader
+                              accept="image/*" 
+                              id="imagen2"
+                              name="imagen2" 
+                              randomizeFilename
+                              storageRef={firebase.storage.ref("productos")}
+                              onUploadStart={handleUploadStart}
+                              onUploadError={handleUploadError}
+                              onUploadSuccess={handleUploadSuccess}
+                              onProgress={handleProgress}
+                            />
+                       </div>
+
+                        {subiendo && (
+                            <div className="h-12 relative w-full border">
+                                <div className="bg-green-500 absolute left-0 top-0 text-white px-2 text-sm h-12 flex items-center" style={{width: '${progreso}%'}}>
+                                   {progreso} % 
+                                </div>
+                            </div>
+                        )}
+                    {urlimagen2 && (
                           <p className="bg-green-500 text-white p-3 text-center my-5">
                               La imagen se subio correctamente
                           </p>  
                         )}
+
+
+
+
+
 
                        <div className="mb-4">
                             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="categoria">Categoria</label>
