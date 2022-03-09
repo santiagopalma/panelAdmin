@@ -4,7 +4,7 @@ import{Routes, Route} from 'react-router';
 import firebase, { FirebaseContext } from './firebase';
 
 import Reservas from './components/paginas/Reservas';
-import Menu from './components/paginas/Menu';
+//import Menu from './components/paginas/Menu';
 import NuevoRoom from './components/paginas/NuevoRoom';
 import Sidebar from './components/ui/Sidebar';
 import Promocion from './components/paginas/promociones';
@@ -39,6 +39,7 @@ function App() {
               <Route path='/EditarRoom/:id' element={<EditarRoom /> }/>
               <Route path='/EditarPromocion/:id' element={<EditarPromocion /> }/>
               <Route path='/EditarActividades/:id' element={<EditarActividades /> }/>
+              <Route path='/Reservas' element={<Reservas /> }/>
               </Routes> 
             </div>
      

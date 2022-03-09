@@ -63,7 +63,7 @@ const DetActividades = ({habitacion}) => {
                     <div className="lg:w-7/12 xl:w-9/12 pl-5">
                     <p className="font-bold text-2xl text-gray-800 mb-4">{Titulo}</p>
                       
-                       <p className="text-gray-600 mb-4">Capacidad: {''}
+                    <p className="text-gray-600 mb-4">Capacidad: {''}
                         <span className="text-gray-700 font-bold"> {Capacidad} </span>
                         </p> 
                      

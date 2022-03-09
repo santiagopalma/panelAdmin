@@ -13,7 +13,7 @@ const DetPromocion = ({habitacion}) => {
     const { firebase} = useContext(FirebaseContext)
 
     const {id, Titulo, existencia, Imagen,  Cantidad, f_inicial, f_final} = habitacion;
-
+    console.log(id);
     //modificar el estado de la habitacion en firebase 
 
     const actualizarDisponibilidad = () => {

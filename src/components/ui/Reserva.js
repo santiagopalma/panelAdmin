@@ -1,95 +1,66 @@
-import React, {useState, useContext} from 'react';
+import React, {useEffect,useState, useContext} from 'react';
 import { FirebaseContext } from '../../firebase';
+import ReservaDetalle from './ReservaDetalle';
 
-const Reserva = ({reserva}) => {
+const Reserva = ({habitacion}) => {
 
-    const [tiempo, guardarTiempo] = useState(0);
-    
     //Context de firebase
-
     const { firebase } = useContext(FirebaseContext);
 
-    // define el tiempo de entrega en tiempo real
-
-    const definirTiempo = id => {
-        try {
-          firebase.db.collection('ordenes')
-            .doc(id)  
-            .update({
-                tiempo
-            })
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
-        //Completar el estado de una reserva
-
-        const completarReserva = id => {
-            try {
-                firebase.db.collection('ordenes')
-                .doc(id)
-                .update({
-                    completado: true
-                })
-                
-            } catch (error) {
-                console.log(error);
-                
-            }
-        }
+    const { email,name, cellphone} = habitacion;
+    const [reservas, guardarReservas] = useState([]);
     
+    useEffect(() =>{
+         
+        const obtenerReservas = () => {
+            firebase.db.collection('usuarios').doc(email).collection("reservas").where("existencia","==",false).onSnapshot(manejarSnapshot);
+        
+        }
+        obtenerReservas();
+    }, []);
+
+    
+    function manejarSnapshot(snapshot) {
+        const reservas = snapshot.docs.map(doc => {
+            return {
+               id: doc.id,
+               ...doc.data() 
+            }
+        });
+        guardarReservas(reservas);
+            
+    }
+       
     return (
-        <div className="sm:w-1/2 lg:w-1/3 px-2 mb-4">
-            <div className="p-3 shadow-md bg-white">
-                <h1 className="text-gray-800 text-lg font-bold">{reserva.id}</h1>
-                {reserva.orden.map( habitaciones =>(
-                    <p className="text-gray-600">{habitaciones.cantidad} {habitaciones.nombre}</p>
-                ))}
-                         
-                <p className="text-gray-700 font-bold">Total a Pagar: $ {reserva.total}</p>
-                {reserva.tiempo === 0 && ( 
-                    <div className="mb-4">
-                        <label className="block text-gray-700 text-sm font-bold mb-2">
-                            Tiempo para confirmar su reserva
-                        </label>
-                        <input
-                            type="number"
-                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            min="1"
-                            max="200000000000000000"
-                            placeholder="20000000"
-                            value={tiempo}
-                            onChange={ e => guardarTiempo (parseInt(e.target.value))}
-                        />
-
-                        <button
-                            onClick={() => definirTiempo(reserva.id)}
-                            type="submit"
-                            className="bg-gray-800 hover:bg-gray-900 w-full mt-5 p-2 text-white uppercase font-bold"
-                        >
-                            Definir tiempo
-                        </button>
-
-                     </div>   
-                )}
-
-                {reserva.tiempo >0 && (
-                   <p className="text-gray-500">Tiempo para confirmar reserva:
-                    <span className="font-bold">{reserva.tiempo}Minutos</span>
-                   </p> 
-                )}
-                
-                {!reserva.completado && reserva.tiempo >0 &&  (
-                    <button
-                    type= "button"
-                    className="bg-blue-800 hover:bg-blue-700 w-full mt-5 p-2 text-white uppercase font-bold"
-                    onClick={ () => completarReserva( reserva.id )}
-                    >
-                        Marcar como lista 
-                    </button>
-                )}
-
+        <div className="w-full px-3 mb-4">
+           <div className="p-5 shadow-md bg-white">
+                <div className="lg:flex">
+                    <div className="w-full px-3 mb-4">
+                       <div className="w-full px-3 mb-4">
+                        <p className="font-bold text-2xl text-gray-800 lg-4">Información del cliente
+                        </p>
+                        <p className="text-gray-600 mb-4">Correo del cliente: {''}
+                            <span className="text-gray-700 font-bold"> {email} </span>
+                        </p>
+                        <p className="text-gray-600 mb-4">Nombre: {''}
+                            <span className="text-gray-700 font-bold"> {name} </span>
+                        </p>
+                        <p className="text-gray-600 mb-4">Telefono: {''}
+                            <span className="text-gray-700 font-bold"> {cellphone} </span>
+                        </p>
+                        <div className="sm:flex sm:flex-wrap -mx-3">
+                            {reservas.map(reserva =>(
+                            <ReservaDetalle
+                                key={reserva.id}
+                                habitacion={reserva}
+                                
+                            />))}
+                             
+                        </div>
+                                             
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     );

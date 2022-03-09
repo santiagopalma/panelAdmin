@@ -7,36 +7,39 @@ const Reservas = () => {
     // context con las operaciones de firebase
 
     const {firebase} = useContext(FirebaseContext);
-    const [reservas, guardarReservas] = useState([]);
+    
+    const [usuarios, guardarUsuarios] = useState([]);
+    
 
     useEffect(() =>{
          
-        const obtenerReservas = () => {
-            firebase.db.collection('ordenes').where('completado', "==", false).onSnapshot(manejarSnapshot);
+        const obtenerUsuarios = () => {
+            firebase.db.collection('usuarios').onSnapshot(manejarSnapshot2);
         }
-        obtenerReservas();
+        obtenerUsuarios();
     }, []);
 
-    function manejarSnapshot(snapshot) {
-        const reservas = snapshot.docs.map(doc => {
+    function manejarSnapshot2(snapshot) {
+        const usuarios = snapshot.docs.map(doc => {
             return {
                id: doc.id,
                ...doc.data() 
             }
+            
         });
-        guardarReservas(reservas);
+        guardarUsuarios(usuarios);
             
     }
 
-
+   
     return (
         <>
             <h1 className="text-3xl font-light mb-4">Reservas</h1>
-            <div className="sm:flex sm:flex-wrap -mx-3">
-                {reservas.map(reserva =>(
+            <div className="w-full px-3 mb-4">
+                {usuarios.map(usuario =>(
                     <Reserva
-                        key={reserva.id}
-                        reserva={reserva}
+                        key={usuario.id}
+                        habitacion={usuario}
                     />
                 ))}
             </div>
